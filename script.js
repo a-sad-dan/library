@@ -12,6 +12,6 @@ function Book(title, author, pages, isRead) {
 //To add books to the library
 function addBookToLibrary()
 {
-    myBook = new Book();
+    const myBook = new Book();
     myLibrary.push(myBook)
 }
