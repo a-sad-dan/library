@@ -1,24 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    </head>
+    
+    <body>
     <div class="page-wrapper">
         <div class="header">
             <form action="">
                 <input type="search" name="search" id="search" placeholder="Search">
                 <button type="submit"><img src="assets/search.svg" alt=""></button>
             </form>
+            <div class="user">
+                <div class="profile">
+                    <img class="profile-icon" src="assets/user.svg" alt="profile-icon">
+                    <p class="profile-name">Danish Asad</p>
+                </div>
+                <div class="mode">
+                    <img src="assets/moon.svg" alt="toggle" id="toggle-btn">
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <img src="assets/logo.svg" alt="e-library">
+            <img src="assets/plus.svg" alt="" id="add-book">
+            <div class="user-stats">
+                <p class="num read">38</p>
+                <p class="num pages">1287</p>
+                <p class="num fav">12</p>
+            </div>
+                <a href="" class="github"><img src="assets/github.svg" alt="github" class="github-logo">
+                a-sad-dan</a>
         </div>
 
-        <div class="sidebar"></div>
-
-        <div class="main"></div>
+        <div class="main">
+            
+        </div>
     </div>
+
+
+    <script src="script.js"></script>
 </body>
+
 </html>
