@@ -121,7 +121,8 @@
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+input[type='url'] {
     font-size: 1rem;
     width: 100%;
     padding: 0.2rem 0.2rem;
@@ -195,6 +196,13 @@ label.book-form-row {
 
 .main {
     background: #F3F3F3;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    place-items: center;
+
 }
 
 a.github {
@@ -257,8 +265,6 @@ html {
 }
 
 
-#logo{
+#logo {
     padding: 2vh;
 }
-
-
