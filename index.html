@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
+    
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="card/card.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap"
@@ -39,14 +42,15 @@
                     <p class="num pages">1287</p>
                     <p class="num fav">12</p>
                 </div>
-                <form class="book-form hidden">
+                <form id='book-form' class="book-form hidden" method="">
                     <input type="text" class="book-form-row" required id="book-name" placeholder="Name">
                     <input type="text" class="book-form-row" required id="author-name" placeholder="Author">
+                    <input type="url" class="book-form-row" id="img-url" placeholder="Book Image Link">
                     <input type="number" class="book-form-row" required id="num-pages" placeholder="Pages">
                     <label class="book-form-row">Book Read
                         <input type="checkbox" name="read" id="read">
                     </label>
-                    <button type="submit">Add Book</button>
+                    <button onmouseup="addBookToLibrary()" type="button">Add Book</button>
                 </form>
             </div>
             <a href="" class="github"><img src="assets/github.svg" alt="github" class="github-logo">
