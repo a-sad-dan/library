@@ -201,7 +201,8 @@ label.book-form-row {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
     padding: 1rem;
-    place-items: center;
+    align-items: baseline;
+    justify-items: center;
 
 }
 
