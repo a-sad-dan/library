@@ -1,0 +1,118 @@
+.card {
+    position: relative;
+    box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    user-select: none;
+    width: min-content;
+    height: min-content;
+
+}
+
+.book-cover {
+    width: 220px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sleeve {
+    background-color: #f8f8f8;
+    height: 55%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    /* For the layout of the Card Elements */
+    display: grid;
+    grid-template: 2fr 1fr 1fr 2fr /1fr 1fr;
+    padding: 16px 10px;
+    gap: 14px;
+}
+
+.book-title,
+.book-author,
+.cross {
+    grid-column: span 2;
+    text-align: center;
+    justify-self: center;
+}
+
+.book-author {
+    align-self: baseline;
+}
+
+.icons {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.pages-info {
+    align-self: end;
+    justify-self: baseline;
+}
+
+.pages-info::after {
+    content: ' Pages';
+}
+
+.card-icon,
+.cross {
+    cursor: pointer;
+
+}
+.cross
+{
+    opacity: 0.5;
+}
+.cross:hover
+{
+    opacity: 1;
+}
+
+.card-icon{
+    opacity: 0.2;
+}
+
+.card-icon:hover
+{
+    opacity: 0.5;
+}
+
+.active
+{
+    opacity: 1;
+}
+
+
+/*                     Typography                     */
+
+.book-title {
+    font-size: 16px;
+}
+
+.book-author {
+    font-size: 14px;
+}
+
+.pages-info {
+    font-size: 14px;
+}
+
+.pages-info::after {
+    font-size: 10px;
+}
+
+
+/* Hover Effect */
+.sleeve {
+    /* opacity: 0; */
+    /* transform: translateY(100%); */
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.card:hover .sleeve {
+    transform: translateY(0);
+    opacity: 1;
+}
