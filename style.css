@@ -6,11 +6,21 @@
     color: #030713;
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* Prevent scrollbars */
+}
+
 .page-wrapper {
     height: 100vh;
     display: grid;
     grid-template: 120px 5fr / 220px 1fr;
 }
+
 
 /*                      Header                        */
 
@@ -198,12 +208,16 @@ label.book-form-row {
     background: #F3F3F3;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1rem;
     padding: 1rem;
     align-items: baseline;
     justify-items: center;
 
+    /* To allow scrolling of the main section */
+    overflow: scroll;
+    grid-template-rows: repeat(auto-fill, minmax(340px, 1fr));
+    
 }
 
 a.github {
@@ -219,11 +233,11 @@ a.github {
 
 /*                  Dark Mode Toggle                 */
 #toggle-btn {
-    opacity: 0.2;
+    opacity: 0.6;
 }
 
 #toggle-btn:hover {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .active {
@@ -231,7 +245,7 @@ a.github {
 }
 
 .invert {
-    filter: invert(0.9);
+    filter: invert(0.95);
 }
 
 .no-shadow {
@@ -242,6 +256,9 @@ html {
     transition: filter 0.5s ease-in-out;
 }
 
+.book-cover {
+    transition: filter 0.5s ease-in-out;
+}
 
 
 /* For the Sidebar animation */
