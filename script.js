@@ -62,21 +62,20 @@ function renderBooks() {
 
         newCard.innerHTML = cardHTML;
         mainArea.appendChild(newCard);
-        if(book.isRead)
-        {
+        if (book.isRead) {
             newCard.querySelector('.isRead').classList.add('active');
         }
-        if(book.isFav)
-        {
+        if (book.isFav) {
             newCard.querySelector('.isFav').classList.add('active');
         }
     });
+    toggleEffect();
 }
 
 
 
 function updateMissingBookCovers() {
-    myLibrary.forEach(book => { if (book.imgLink === "") {book.imgLink = 'assets/sampleBook.png'}});
+    myLibrary.forEach(book => { if (book.imgLink === "") { book.imgLink = 'assets/sampleBook.png' } });
 }
 
 renderBooks();
@@ -112,7 +111,7 @@ function resetForm() {
 
 //Function to remove book from the library (to be used on the cross button)
 let crossArr = [];
-let favArr  = [];
+let favArr = [];
 let readArr = [];
 
 function updateElementArr() {
@@ -129,10 +128,10 @@ function listenForEvents() {
         element.addEventListener('click', () => removeBook(element))
     });
     favArr.forEach(element => {
-        element.addEventListener('click', ()=>toggleFav(element));
+        element.addEventListener('click', () => toggleFav(element));
     })
     readArr.forEach(element => {
-        element.addEventListener('click', ()=>toggleIsRead(element));
+        element.addEventListener('click', () => toggleIsRead(element));
     })
 }
 
@@ -140,18 +139,16 @@ function listenForEvents() {
 
 
 // Function to favourite book status
-function toggleFav(book)
-{
+function toggleFav(book) {
     const BookIndex = book.dataset.fav;
-    myLibrary[BookIndex].isFav ? myLibrary[BookIndex].isFav = false : myLibrary[BookIndex].isFav = true; 
+    myLibrary[BookIndex].isFav ? myLibrary[BookIndex].isFav = false : myLibrary[BookIndex].isFav = true;
     // console.log(myLibrary[BookIndex].isFav)
     book.classList.toggle('active');
 }
 //Function to Toggle Read Book status
-function toggleIsRead(book)
-{
+function toggleIsRead(book) {
     const BookIndex = book.dataset.read;
-    myLibrary[BookIndex].isRead ? myLibrary[BookIndex].isRead = false : myLibrary[BookIndex].isRead = true; 
+    myLibrary[BookIndex].isRead ? myLibrary[BookIndex].isRead = false : myLibrary[BookIndex].isRead = true;
     // console.log(myLibrary[BookIndex].isRead)
     book.classList.toggle('active');
 }
@@ -190,3 +187,16 @@ bookBtn.addEventListener('click', () => {
     document.querySelector('.book-form').classList.toggle('hidden');
 
 });
+
+//  Function for Toggle Effect
+function toggleEffect() {
+    const cardIconsArr = document.querySelectorAll('.card-icon');
+    cardIconsArr.forEach(icon => {
+        icon.addEventListener('click', () => {
+            icon.classList.add('jump');
+            setTimeout(() => {
+                icon.classList.remove('jump');
+            }, 300);
+        })
+    });
+}

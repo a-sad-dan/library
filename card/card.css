@@ -113,3 +113,13 @@
     transform: translateY(0);
     opacity: 1;
 }
+
+
+/* icon jumping effect */
+.jump {
+    transform: translateY(-50%);
+}
+
+.card-icon {
+    transition: transform 0.3s ease;
+}
