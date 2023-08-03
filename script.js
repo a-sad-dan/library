@@ -38,6 +38,24 @@ function Book(title, author, pages, isRead, imgLink) {
 }
 
 
+
+// To keep track of the Data of the Library 
+
+
+let numBooksRead = 0;
+let numPages = 0;
+numFav = 0;
+
+function updateBooksInfo() {
+    numBooksRead = myLibrary.reduce((total, book) => total + (book.isRead ? 1 : 0), 0);
+    numPages = myLibrary.reduce((total, book) => total + parseInt(book.pages), 0);
+    numFav = myLibrary.reduce((total, book) => total + (book.isFav ? 1 : 0), 0);
+
+    document.querySelector('.num.read').textContent = numBooksRead;
+    document.querySelector('.num.pages').textContent = numPages;
+    document.querySelector('.num.fav').textContent = numFav;
+}
+
 // Function to Render Books
 
 function renderBooks() {
@@ -70,6 +88,7 @@ function renderBooks() {
         }
     });
     toggleEffect();
+    updateBooksInfo();
 }
 
 
@@ -144,6 +163,7 @@ function toggleFav(book) {
     myLibrary[BookIndex].isFav ? myLibrary[BookIndex].isFav = false : myLibrary[BookIndex].isFav = true;
     // console.log(myLibrary[BookIndex].isFav)
     book.classList.toggle('active');
+    updateBooksInfo();
 }
 //Function to Toggle Read Book status
 function toggleIsRead(book) {
@@ -151,6 +171,7 @@ function toggleIsRead(book) {
     myLibrary[BookIndex].isRead ? myLibrary[BookIndex].isRead = false : myLibrary[BookIndex].isRead = true;
     // console.log(myLibrary[BookIndex].isRead)
     book.classList.toggle('active');
+    updateBooksInfo();
 }
 
 
