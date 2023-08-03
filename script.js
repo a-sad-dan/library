@@ -1,3 +1,4 @@
+const mainArea = document.querySelector('.main');
 // Storing All the book objects in an array
 let myLibrary = [
     {
@@ -5,21 +6,24 @@ let myLibrary = [
         "author": "J.K. Rowling",
         "pages": "300",
         "isRead": true,
-        "imgLink": "https://c8.alamy.com/comp/HMHD9T/harry-potter-and-the-philosophers-stone-HMHD9T.jpg"
+        "imgLink": "https://c8.alamy.com/comp/HMHD9T/harry-potter-and-the-philosophers-stone-HMHD9T.jpg",
+        "isRead": false
     },
     {
         "title": "Harry Potter and the Deathly Hallows",
         "author": "Danish Asad",
         "pages": "213",
         "isRead": false,
-        "imgLink": "https://www.nicepng.com/png/full/895-8959915_please-note-jk-rowling-harry-potter-book-cover.png"
+        "imgLink": "https://www.nicepng.com/png/full/895-8959915_please-note-jk-rowling-harry-potter-book-cover.png",
+        "isRead": false
     },
     {
         "title": "Harry Potter and the Chamber of secrets",
         "author": "j.k. rowling",
         "pages": "450",
         "isRead": false,
-        "imgLink": "https://wallpaper.dog/large/198914.jpg"
+        "imgLink": "https://wallpaper.dog/large/198914.jpg",
+        "isRead": false
     }
 ];
 
@@ -28,50 +32,95 @@ function Book(title, author, pages, isRead, imgLink) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.isRead = isRead;
     this.imgLink = imgLink;
+    this.isRead = isRead;
+    this.isFav = false;
 }
 
-//To add books to the library
-function addBookToLibrary() {
-    const authorName = document.getElementById('author-name').value;
-    const bookName = document.getElementById('book-name').value;
-    const numPages = document.getElementById('num-pages').value;
-    const imgLink = document.getElementById('img-url').value;
-    const isRead = document.getElementById('read').checked;
-    const myBook = new Book(bookName, authorName, numPages, isRead, imgLink);
-    myLibrary.push(myBook);
-    console.table(myLibrary);
-    document.querySelector('#book-form').reset();
-}
+// Function to Render Books
 
-const mainArea = document.querySelector('.main');
-// Function to display the Book Cards
-function updateCard() {
-    console.log('started updating cards');
-    myLibrary.forEach(element => {
+function renderBooks() {
+    mainArea.innerHTML = '';
+    myLibrary.forEach(book => {
+        const BookIndex = myLibrary.indexOf(book);
+
         const newCard = document.createElement('div');
-        const cardHtml = `<img class="book-cover" src=${element.imgLink} alt="Book-cover">
-      <div class="sleeve">
-          <img class="cross" id ="remove-book" src="card/cross.svg" alt="remove-book">
-          <p class="book-title">${element.title}</p>
-          <p class="book-author">${element.author}</p>
-          <p class="pages-info">${element.pages}</p>
-          <div class="icons">
-              <img src="card/heart.svg" alt="" class="card-icon" id ="">
-              <img src="card/check-square.svg" alt="" class="card-icon" id="read-btn">
-          </div>
-      </div>`;
-        newCard.innerHTML = cardHtml;
         newCard.classList.add('card');
+        const cardHTML = `<img class="book-cover" src="${book.imgLink}" alt="">
+        <div class="sleeve">
+            <img class="cross" src="card/cross.svg" data-cross="${BookIndex}" alt="">
+            <p class="book-title">${book.title}</p>
+            <p class="book-author">${book.author}</p>
+            <p class="pages-info">${book.pages}</p>
+            <div class="icons">
+                <img src="card/heart.svg" alt="" class="card-icon" data-fav="${BookIndex}">
+                <img src="card/check-square.svg" alt="" class="card-icon" data-read="${BookIndex}">
+            </div>
+        </div>`
+
+        newCard.innerHTML = cardHTML;
         mainArea.appendChild(newCard);
-        if (element.isRead) {
-            newCard.querySelector('#read-btn').classList.add('active');
-        }
     });
 }
 
+renderBooks();
+
+// Function to get Book Data from the form
+function getBookData() {
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const pages = document.querySelector('#pages').value;
+    const imgUrl = document.querySelector('#img-url').value;
+    const isRead = document.querySelector('#is-read').checked;
+
+    const bookData = new Book(title, author, pages, isRead, imgUrl);
+    return bookData;
+}
+
+function addBookToLibrary() {
+    // event.preventDefault();
+    const newBook = getBookData();
+    myLibrary.push(newBook);
+    console.table(myLibrary);
+    resetForm();
+    renderBooks();
+    updateCrossArr();
+    listenForCross();
+}
+
+
+function resetForm() {
+    document.querySelector("#book-form").reset();
+}
+
 //Function to remove book from the library (to be used on the cross button)
+let crossArr=[];
+function updateCrossArr()
+{   
+    crossArr = document.querySelectorAll('.cross');
+}
+
+function listenForCross()
+{
+    updateCrossArr();
+    crossArr.forEach(element => {
+        element.addEventListener('click',()=>removeBook(element))
+    });
+}
+
+
+function removeBook(element)
+{
+    const BookIndex = element.dataset.cross;
+    myLibrary.splice(BookIndex,1);
+    renderBooks();
+    updateCrossArr();
+    listenForCross();
+
+}
+
+listenForCross();
+
 //Function removes the Card element opacity and then removes it from the dom and removes the corresponding object from the myLibrary
 
 
@@ -93,7 +142,4 @@ bookBtn.addEventListener('click', () => {
     document.querySelector('.user-stats').classList.toggle('hidden');
     document.querySelector('.book-form').classList.toggle('hidden');
 
-})
-
-
-updateCard();
+});
