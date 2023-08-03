@@ -53,6 +53,7 @@
 
 .pages-info::after {
     content: ' Pages';
+    display: inline;
 }
 
 .card-icon,
