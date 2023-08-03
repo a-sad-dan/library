@@ -7,7 +7,7 @@ let myLibrary = [
         "pages": "300",
         "isRead": true,
         "imgLink": "https://c8.alamy.com/comp/HMHD9T/harry-potter-and-the-philosophers-stone-HMHD9T.jpg",
-        "isRead": false
+        "isFav": false
     },
     {
         "title": "Harry Potter and the Deathly Hallows",
@@ -15,15 +15,15 @@ let myLibrary = [
         "pages": "213",
         "isRead": false,
         "imgLink": "https://www.nicepng.com/png/full/895-8959915_please-note-jk-rowling-harry-potter-book-cover.png",
-        "isRead": false
+        "isFav": true
     },
     {
         "title": "Harry Potter and the Chamber of secrets",
         "author": "j.k. rowling",
         "pages": "450",
-        "isRead": false,
+        "isRead": true,
         "imgLink": "https://wallpaper.dog/large/198914.jpg",
-        "isRead": false
+        "isFav": false
     }
 ];
 
@@ -36,6 +36,7 @@ function Book(title, author, pages, isRead, imgLink) {
     this.isRead = isRead;
     this.isFav = false;
 }
+
 
 // Function to Render Books
 
@@ -54,15 +55,24 @@ function renderBooks() {
             <p class="book-author">${book.author}</p>
             <p class="pages-info">${book.pages}</p>
             <div class="icons">
-                <img src="card/heart.svg" alt="" class="card-icon" data-fav="${BookIndex}">
-                <img src="card/check-square.svg" alt="" class="card-icon" data-read="${BookIndex}">
+                <img src="card/heart.svg" alt="" class="card-icon isFav" data-fav="${BookIndex}">
+                <img src="card/check-square.svg" alt="" class="card-icon isRead" data-read="${BookIndex}">
             </div>
         </div>`
 
         newCard.innerHTML = cardHTML;
         mainArea.appendChild(newCard);
+        if(book.isRead)
+        {
+            newCard.querySelector('.isRead').classList.add('active');
+        }
+        if(book.isFav)
+        {
+            newCard.querySelector('.isFav').classList.add('active');
+        }
     });
 }
+
 
 
 function updateMissingBookCovers() {
@@ -89,8 +99,8 @@ function addBookToLibrary() {
     myLibrary.push(newBook);
     resetForm();
     renderBooks();
-    updateCrossArr();
-    listenForCross();
+    updateElementArr();
+    listenForEvents();
 }
 
 
@@ -98,30 +108,65 @@ function resetForm() {
     document.querySelector("#book-form").reset();
 }
 
+
+
 //Function to remove book from the library (to be used on the cross button)
 let crossArr = [];
-function updateCrossArr() {
+let favArr  = [];
+let readArr = [];
+
+function updateElementArr() {
     crossArr = document.querySelectorAll('.cross');
+    favArr = document.querySelectorAll('.isFav');
+    readArr = document.querySelectorAll('.isRead');
 }
 
-function listenForCross() {
-    updateCrossArr();
+
+
+function listenForEvents() {
+    updateElementArr();
     crossArr.forEach(element => {
         element.addEventListener('click', () => removeBook(element))
     });
+    favArr.forEach(element => {
+        element.addEventListener('click', ()=>toggleFav(element));
+    })
+    readArr.forEach(element => {
+        element.addEventListener('click', ()=>toggleIsRead(element));
+    })
 }
+
+
+
+
+// Function to favourite book status
+function toggleFav(book)
+{
+    const BookIndex = book.dataset.fav;
+    myLibrary[BookIndex].isFav ? myLibrary[BookIndex].isFav = false : myLibrary[BookIndex].isFav = true; 
+    // console.log(myLibrary[BookIndex].isFav)
+    book.classList.toggle('active');
+}
+//Function to Toggle Read Book status
+function toggleIsRead(book)
+{
+    const BookIndex = book.dataset.read;
+    myLibrary[BookIndex].isRead ? myLibrary[BookIndex].isRead = false : myLibrary[BookIndex].isRead = true; 
+    // console.log(myLibrary[BookIndex].isRead)
+    book.classList.toggle('active');
+}
+
 
 
 function removeBook(element) {
     const BookIndex = element.dataset.cross;
     myLibrary.splice(BookIndex, 1);
     renderBooks();
-    updateCrossArr();
-    listenForCross();
-
+    updateElementArr();
+    listenForEvents();
 }
 
-listenForCross();
+listenForEvents();
 
 //Function removes the Card element opacity and then removes it from the dom and removes the corresponding object from the myLibrary
 
