@@ -41,6 +41,7 @@ function Book(title, author, pages, isRead, imgLink) {
 
 function renderBooks() {
     mainArea.innerHTML = '';
+    updateMissingBookCovers();
     myLibrary.forEach(book => {
         const BookIndex = myLibrary.indexOf(book);
 
@@ -63,6 +64,11 @@ function renderBooks() {
     });
 }
 
+
+function updateMissingBookCovers() {
+    myLibrary.forEach(book => { if (book.imgLink === "") {book.imgLink = 'assets/sampleBook.png'}});
+}
+
 renderBooks();
 
 // Function to get Book Data from the form
@@ -81,7 +87,6 @@ function addBookToLibrary() {
     // event.preventDefault();
     const newBook = getBookData();
     myLibrary.push(newBook);
-    console.table(myLibrary);
     resetForm();
     renderBooks();
     updateCrossArr();
@@ -94,25 +99,22 @@ function resetForm() {
 }
 
 //Function to remove book from the library (to be used on the cross button)
-let crossArr=[];
-function updateCrossArr()
-{   
+let crossArr = [];
+function updateCrossArr() {
     crossArr = document.querySelectorAll('.cross');
 }
 
-function listenForCross()
-{
+function listenForCross() {
     updateCrossArr();
     crossArr.forEach(element => {
-        element.addEventListener('click',()=>removeBook(element))
+        element.addEventListener('click', () => removeBook(element))
     });
 }
 
 
-function removeBook(element)
-{
+function removeBook(element) {
     const BookIndex = element.dataset.cross;
-    myLibrary.splice(BookIndex,1);
+    myLibrary.splice(BookIndex, 1);
     renderBooks();
     updateCrossArr();
     listenForCross();
